@@ -45,16 +45,28 @@ const HomePage: NextPage = () => {
   }
 
   const {
-    run: submitHandler
-    //loading, // if you want
+    run: submitHandler,
+    loading: isLoading // if you want
     //error  // if you want
   } = useAsync(
     async () => {
       try {
-        await api.post('/signin', {
+        const res = await api.post('/signin', {
           region,
           accountName: rsaEncryptData(accountName)
         })
+        // const {
+        //   data: { Code, Msg }
+        // } = res
+        // if (Code === 'success') {
+        //   message.success({ content: Msg })
+        //   window.location.href = window.location.href.replace('/homePage', '/player')
+        // } else {
+        //   message.warning({ content: Msg })
+        // }
+        if (res?.data[0]?.account_id) {
+          window.location.href = window.location.href.replace('/homePage', '/player')
+        }
       } catch (error) {
         //do some logic
       }
@@ -77,8 +89,8 @@ const HomePage: NextPage = () => {
             )
           })}
         </Select>
-        <Input size="large" value={accountName} onChange={inputChangeHandler} />
-        <Button size="large" type="primary" className="searchBtn" onClick={submitHandler}>
+        <Input size="large" value={accountName} onChange={inputChangeHandler} onPressEnter={submitHandler} />
+        <Button size="large" type="primary" className="searchBtn" onClick={submitHandler} loading={isLoading}>
           Submit
         </Button>
       </InputContainer>
