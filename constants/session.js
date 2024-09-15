@@ -1,3 +1,6 @@
 module.exports.PUBLIC_KEY = 'publicKey'
 module.exports.PRIVATE_KEY = 'privateKey'
 module.exports.RSA_STORE = 'rsa'
+module.exports.USER_INFO = 'userInfo'
+module.exports.ACCOUNT_ID = 'accountId'
+module.exports.REGION = 'region'
